@@ -37,7 +37,7 @@ namespace WebApplication1 {
 
             app.UseRouting();
 
-            app.UseAuthentication();
+            app.UseAuthentication(); // Authentication before Authorisation
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {

@@ -11,20 +11,17 @@ If you intend to make a web app and storing user info with additional fields in 
 
 1. Create a standard Razor web app (non-MVC, non-SPA) without authorisation
 2. Right-click project and add Identity Scaffold, the options to tick are: Account/Register and Account/Manage/Index, it might just be Account/Manage though
-3. Create the new Data context class and the new user class, (no need to modify the layout file) then Add
+3. Create both New Data context class and New user class, (no need to modify the layout file) then Add
 4. Migrate and update the newly generated database context
 5. Add app.UseAthentication(); to Startup.cs
 6. Add <partial name="_LoginPartial" /> to the header of the layout file
-7. Go to your user model, e.g. WebApplicationUser1.cs
-8. Add [PersonalData] properties
-9. Update the razor pages and associated cs files
-
+7. Go to your user model, e.g. WebApplication1User.cs in the Areas/ folder
+8. Add [PersonalData] properties to your user class such as Name and DOB
+9. Update the razor pages and associated cs files:
     * Manage/Index.cshtml changes required:
     ```Add properties to InputModels within the constructor, LoadAsync (not GetAsync), PostAsync - will have to refer to the document for this one, will mark the new stuff with asterisks```
-
     * Register.cshtml changes required:
     ```Add properties to InputModels within the constructor, and onPostAsync```
-
 10. Build then migrate
 
 -----------
@@ -68,7 +65,7 @@ namespace WebApplication1 {
 1. Add the main Model that you will be working with
 2. Scaffold that model
 3. Add services.AddScoped<IModelName, ModelName>(); (maybe not necessary)
-4. Add-Migration AddModel then Update-Database
+4. Add-Migration then Update-Database
 * Create.cshtml has this hidden field UserID which will be recorded in the main country model as who added that country
 ```
 <form method="post">

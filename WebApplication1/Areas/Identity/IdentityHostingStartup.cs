@@ -15,14 +15,14 @@ namespace WebApplication1.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((context, services) => {
-                services.AddDbContext<WebApplication1Context>(options =>
-                    options.UseSqlServer(
-                        context.Configuration.GetConnectionString("WebApplication1ContextConnection")));
+            //builder.ConfigureServices((context, services) => {
+            //    services.AddDbContext<WebApplication1Context>(options =>
+            //        options.UseSqlServer(
+            //            context.Configuration.GetConnectionString("WebApplication1ContextConnection")));
 
-                services.AddDefaultIdentity<WebApplication1User>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<WebApplication1Context>();
-            });
+            //    services.AddDefaultIdentity<WebApplication1User>(options => options.SignIn.RequireConfirmedAccount = true)
+            //        .AddEntityFrameworkStores<WebApplication1Context>();
+            //});
         }
     }
 }

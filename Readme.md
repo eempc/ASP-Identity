@@ -31,7 +31,7 @@ If you intend to make a web app and storing user info with additional fields in 
 
 ## Unifying the DBcontext
 
-* DBContext services startup will be moved to IdentityHostingStartup.cs
+* DBContext services startup will in IdentityHostingStartup.cs
 * The contents of this can be moved back to Startup.cs with a few differences.
 
 ```[assembly: HostingStartup(typeof(WebApplication1.Areas.Identity.IdentityHostingStartup))] // This bit may not be required, it can be commented out
@@ -62,7 +62,8 @@ namespace WebApplication1 {
 
 # Adding the main model to work with
 
-For the most fuss-free method of adding a model, use the CRUD scaffolder to create a separate database for the main model. But then you end up with two databases. However it is just the same as before:
+* If you did the previous steps to move IHostingStartup contents, then the model context will be lumped into the identity db context. This is the same as the original method when the ApplicationDBContext was created by the VS wizard
+* If not, then you would need to make a new second database for your main model, as it will not allow access to the identity model.
 
 1. Add the main Model that you will be working with
 2. Scaffold that model

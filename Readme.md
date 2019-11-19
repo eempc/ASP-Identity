@@ -94,7 +94,7 @@ public async Task<IActionResult> OnPostAsync() {
     }
 
     // **************** Then finally do this update thing ****************
-   + await _userManager.UpdateAsync(user);
++   await _userManager.UpdateAsync(user);
 
     await _signInManager.RefreshSignInAsync(user);
     StatusMessage = "Your profile has been updated";

@@ -18,18 +18,17 @@ https://docs.microsoft.com/en-us/aspnet/core/security/authentication/add-user-da
 9. Update the razor pages and associated cs files:
     * Manage/Index.cshtml changes required:
 
-```
+```diff
 <div class="form-group">
-    <!-- **************** Add the new fields in here **************** -->
-    <div class="form-group">
-        <label asp-for="Input.Name"></label>
-        <input asp-for="Input.Name" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Input.DateOfBirth"></label>
-        <input asp-for="Input.DateOfBirth" class="form-control" />
-    </div>
-    <!-- **************** End **************** -->
++   <div class="form-group">
++       <label asp-for="Input.Name"></label>
++       <input asp-for="Input.Name" class="form-control" />
++   </div>
++   <div class="form-group">
++       <label asp-for="Input.DateOfBirth"></label>
++       <input asp-for="Input.DateOfBirth" class="form-control" />
++   </div>
+
     <label asp-for="Input.PhoneNumber"></label>
     <input asp-for="Input.PhoneNumber" class="form-control" />
     <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
@@ -39,16 +38,15 @@ https://docs.microsoft.com/en-us/aspnet/core/security/authentication/add-user-da
 
 ```diff
 public class InputModel {
-    // **************** Ask for full name and date of birth, same properties as the user model ****************
-    [Required]
-    [DataType(DataType.Text)]
-    [Display(Name = "Full name")]
-    public string Name { get; set; }
++   [Required]
++   [DataType(DataType.Text)]
++   [Display(Name = "Full name")]
++   public string Name { get; set; }
 
-    [Required]
-    [DataType(DataType.Date)]
-    [Display(Name = "Birth date")]
-    public DateTime DateOfBirth { get; set; }
++   [Required]
++   [DataType(DataType.Date)]
++   [Display(Name = "Birth date")]
++   public DateTime DateOfBirth { get; set; }
 
     [Phone]
     [Display(Name = "Phone number")]
@@ -61,10 +59,9 @@ private async Task LoadAsync(WebApplication2User user) {
 
     Username = userName;
 
-    // **************** Update the input model here ****************
     Input = new InputModel {
-        Name = user.Name,
-        DateOfBirth = user.DateOfBirth,
++       Name = user.Name,
++       DateOfBirth = user.DateOfBirth,
         PhoneNumber = phoneNumber
     };
 }
@@ -80,9 +77,8 @@ public async Task<IActionResult> OnPostAsync() {
         return Page();
     }
 
-    // **************** Add some checks in here for the new properties ****************
-    if (Input.Name != user.Name) user.Name = Input.Name;
-    if (Input.DateOfBirth != user.DateOfBirth) user.DateOfBirth = Input.DateOfBirth;
++   if (Input.Name != user.Name) user.Name = Input.Name;
++   if (Input.DateOfBirth != user.DateOfBirth) user.DateOfBirth = Input.DateOfBirth;
 
     var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
     if (Input.PhoneNumber != phoneNumber) {
@@ -93,7 +89,6 @@ public async Task<IActionResult> OnPostAsync() {
         }
     }
 
-    // **************** Then finally do this update thing ****************
 +   await _userManager.UpdateAsync(user);
 
     await _signInManager.RefreshSignInAsync(user);
@@ -103,11 +98,60 @@ public async Task<IActionResult> OnPostAsync() {
 
 ```
 
-
-
     * Register.cshtml changes required:
 
-    ```Add properties to InputModels within the constructor, and onPostAsync```
+```diff
+<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <h4>Create a new account.</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
++   <div class="form-group">
++       <label asp-for="Input.Name"></label>
++       <input asp-for="Input.Name" class="form-control" />
++       <span asp-validation-for="Input.Name" class="text-danger"></span>
++   </div>
++   <div class="form-group">
++       <label asp-for="Input.DateOfBirth"></label>
++       <input asp-for="Input.DateOfBirth" class="form-control" />
++       <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
++   </div>
+
+    Etc...
+</form>
+```
+
+    * Register cs file changes:
+
+```diff
+public class InputModel {
++   [Required]
++   [DataType(DataType.Text)]
++   [Display(Name = "Full name")]
++   public string Name { get; set; }
+
++   [Required]
++   [Display(Name = "Birth Date")]
++   [DataType(DataType.Date)]
++   public DateTime DateOfBirth { get; set; }
+
+    etc...
+}
+
+public async Task<IActionResult> OnPostAsync(string returnUrl = null) {
+    returnUrl = returnUrl ?? Url.Content("~/");
+    ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+    if (ModelState.IsValid) {
+        var user = new WebApplication2User {
++           Name = Input.Name,
++           DateOfBirth = Input.DateOfBirth,
+            UserName = Input.Email,
+            Email = Input.Email
+        };
+    }
+    etc...
+}
+```
+
 10. Build then migrate
 
 -----------

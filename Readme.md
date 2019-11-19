@@ -16,7 +16,8 @@ https://docs.microsoft.com/en-us/aspnet/core/security/authentication/add-user-da
 7. Find user model, e.g. `WebApplication1User.cs` in the Areas/ folder
 8. Add `[PersonalData]` properties to your user class such as Name and DOB
 9. Update the razor pages and associated cs files:
-    * Manage/Index.cshtml changes required:
+
+* Manage/Index.cshtml changes required:
 
 ```diff
 <div class="form-group">
@@ -32,8 +33,10 @@ https://docs.microsoft.com/en-us/aspnet/core/security/authentication/add-user-da
     <label asp-for="Input.PhoneNumber"></label>
     <input asp-for="Input.PhoneNumber" class="form-control" />
     <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-</div>```
-    * Manage/Index.cshtml.cs changes required:
+</div>
+```
+
+* Manage/Index.cshtml.cs changes required:
 
 ```diff
 public class InputModel {
@@ -93,9 +96,10 @@ public async Task<IActionResult> OnPostAsync() {
     await _signInManager.RefreshSignInAsync(user);
     StatusMessage = "Your profile has been updated";
     return RedirectToPage();
-}```
+}
+```
 
-    * Register.cshtml changes required:
+* Register.cshtml changes required:
 
 ```diff
 <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
@@ -114,9 +118,10 @@ public async Task<IActionResult> OnPostAsync() {
 +   </div>
 
     Etc...
-</form>```
+</form>
+```
 
-    * Register cs file changes:
+* Register .cs file changes:
 
 ```diff
 public class InputModel {
@@ -145,7 +150,8 @@ public async Task<IActionResult> OnPostAsync(string returnUrl = null) {
         };
     }
     etc...
-}```
+}
+```
 
 10. Build then migrate
 

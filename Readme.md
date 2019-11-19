@@ -32,8 +32,7 @@ https://docs.microsoft.com/en-us/aspnet/core/security/authentication/add-user-da
     <label asp-for="Input.PhoneNumber"></label>
     <input asp-for="Input.PhoneNumber" class="form-control" />
     <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-</div>
-```
+</div>```
     * Manage/Index.cshtml.cs changes required:
 
 ```diff
@@ -94,9 +93,7 @@ public async Task<IActionResult> OnPostAsync() {
     await _signInManager.RefreshSignInAsync(user);
     StatusMessage = "Your profile has been updated";
     return RedirectToPage();
-}
-
-```
+}```
 
     * Register.cshtml changes required:
 
@@ -117,8 +114,7 @@ public async Task<IActionResult> OnPostAsync() {
 +   </div>
 
     Etc...
-</form>
-```
+</form>```
 
     * Register cs file changes:
 
@@ -149,8 +145,7 @@ public async Task<IActionResult> OnPostAsync(string returnUrl = null) {
         };
     }
     etc...
-}
-```
+}```
 
 10. Build then migrate
 

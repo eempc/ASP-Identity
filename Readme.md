@@ -37,7 +37,7 @@ https://docs.microsoft.com/en-us/aspnet/core/security/authentication/add-user-da
 ```
     * Manage/Index.cshtml.cs changes required:
 
-```
+```diff
 public class InputModel {
     // **************** Ask for full name and date of birth, same properties as the user model ****************
     [Required]
